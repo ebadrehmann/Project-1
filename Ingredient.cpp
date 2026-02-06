@@ -9,7 +9,7 @@ Ingredient::Ingredient(string name, double quantity, string unit){
 }
 
 void Ingredient::display(){
-    cout << name << " ";
+    cout << name << "This is the diplay() method for ingredient";
 }
 
 string Ingredient::getName(){

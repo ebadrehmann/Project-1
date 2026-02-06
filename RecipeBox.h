@@ -10,6 +10,7 @@ class RecipeBox{
     vector<Recipe*> recipes;
     public:
     RecipeBox();
+    ~RecipeBox();
     void addRecipe();
     void displayAll();
     void displayByCategory(string category);
