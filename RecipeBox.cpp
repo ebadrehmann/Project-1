@@ -1,9 +1,12 @@
 #include <iostream>
+#include <fstream>
 #include "RecipeBox.h"
 using namespace std;
 
 RecipeBox::RecipeBox(){
-
+    for (Recipe* r:recipes){
+        delete r;
+    }
 }
 
 RecipeBox::~RecipeBox(){
@@ -58,6 +61,9 @@ void RecipeBox::addRecipe(){
     recipes.push_back(r);
 
 }
+vector<Recipe*> RecipeBox::getRecipes(){
+    return recipes;
+}
 void RecipeBox::displayAll(){
     for (Recipe *r: getRecipes()){
         r->display();
@@ -96,9 +102,67 @@ void RecipeBox::deleteRecipe(int index){
     }
 }
 
+// write
 void RecipeBox::saveToFile(string fileName){
-
+    ofstream file(fileName);
+    if (file.is_open()){
+        for (Recipe* r:recipes){
+                file << r->getTitle() << endl;
+                file << r->getCategory() << endl;
+                file << r->getPrepTime() << endl;
+                file << r->getServings() << endl;
+                file << r->getIsFavorite() << endl;
+                vector<Ingredient*> ing = r->getIngredients();
+                // print the # of ingredients
+                file << ing.size() << endl;
+                for (Ingredient* i:ing){
+                    file << i->getName() << endl;
+                    file << i->getUnit() << endl;
+                    file << i->getQuantity() << endl;
+                }
+                vector<string> instructions = r->getInstructions();
+                // print the # of instructions
+                file << instructions.size() << endl;
+                for (string instruction: instructions){
+                    file << instruction << endl;
+                }
+            }
+        file.close();
+    }
+    
 }
-void loadFromFile(string fileName){
 
+// read
+void RecipeBox::loadFromFile(string fileName){
+    ifstream file(fileName);
+    if (file.is_open()){
+        string title, category;
+        int prepTime, servings;
+        bool isFavorite;
+        getline(file, title);
+        getline(file, category);
+        file >> prepTime >> servings >> isFavorite;
+        Recipe* r = new Recipe(title, category, prepTime, servings, isFavorite);
+        int numIngredients;
+        file >> numIngredients;
+        file.ignore();
+        for (int i = 0; i < numIngredients; i++){
+            string name, unit;
+            double quantity;
+            getline(file, name);
+            getline(file, unit);
+            file >> quantity;
+            r->addIngredient(new Ingredient(name, quantity, unit));
+        }
+        int numInstructions;
+        file >> numInstructions;
+        file.ignore();
+        for (int i = 0; i < numInstructions; i++){
+            string instruction;
+            getline(file, instruction);
+            r->addInstruction(instruction);
+        }
+        recipes.push_back(r);
+        file.close();
+    }
 }

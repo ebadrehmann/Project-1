@@ -19,9 +19,8 @@ class RecipeBox{
     void deleteRecipe(int index);
     void saveToFile(string fileName);
     void loadFromFile(string fileName);
-    vector<Recipe*> getRecipes(){
-        return recipes;
-    }
+    // getters
+    vector<Recipe*> getRecipes();
 };
 
 

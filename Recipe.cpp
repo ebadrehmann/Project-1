@@ -37,3 +37,16 @@ vector<Ingredient*> Recipe::getIngredients(){
 string Recipe:: getCategory(){
     return category;
 }
+string Recipe::getTitle(){
+    return title;
+}
+
+int Recipe::getServings(){
+    return servings;
+}
+int Recipe::getPrepTime(){
+    return prepTime;
+}
+vector<string>Recipe::getInstructions(){
+    return instructions;
+}

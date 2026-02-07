@@ -15,3 +15,11 @@ void Ingredient::display(){
 string Ingredient::getName(){
     return name;
 }
+
+double Ingredient::getQuantity(){
+    return quantity;
+}
+
+string Ingredient::getUnit(){
+    return unit;
+}

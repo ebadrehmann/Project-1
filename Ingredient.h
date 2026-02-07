@@ -14,6 +14,8 @@ class Ingredient{
         Ingredient(string name, double quantity, string unit);
         void display();
         string getName();
+        double getQuantity();
+        string getUnit();
 };
 
 #endif
